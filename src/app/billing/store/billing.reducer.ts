@@ -21,8 +21,7 @@ export function BillingReducer(state: State = defaultState, action: BillingActio
             console.log("GET_PAYMENT_HISTORY reducer called")
             return state;
         case BillingActions.SUBMIT_PAYMENT_SUCCESS:
-            console.log("SUBMIT_PAYMENT reducer called")
-            console.log(action.payload);
+            console.log("SUBMIT_PAYMENT_SUCCESS reducer called")
             const newPayments = [...state.payments, action.payload];
             return {...state, payments: newPayments};
         default:

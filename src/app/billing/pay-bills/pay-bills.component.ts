@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { BillingService } from '../billing.service';
 import { Payment } from '../payment.model';
+import { AppState } from '../../store/app.reducers';
+import * as BillingActions from '../store/billing.actions';
 
 @Component({
   selector: 'app-pay-bills',
@@ -10,16 +12,14 @@ import { Payment } from '../payment.model';
 })
 export class PayBillsComponent implements OnInit {
 
-  constructor(private billingService: BillingService) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
   }
 
   submitPayment(desc: string, amt: number) {
     let payment = new Payment(new Date(), desc, amt);
-    console.log(payment);
-    this.billingService.submitPayment({date: new Date(), description: desc, amount: amt});
-    // this.store.dispatch(new BillingActions.TrySubmitPayment({date: new Date(), description: "This is a payment", amount: 50}));
+    this.store.dispatch(new BillingActions.TrySubmitPayment(payment));
   }
 
 }
