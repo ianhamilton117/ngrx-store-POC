@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>
+    Make A Payment
+  </h2>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input #desc type="text" class="form-control" id="description" (keyup.enter)="submit.click()">
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount:</label>
+      <input #amt type="number" class="form-control" id="amount" (keyup.enter)="submit.click()">
+    </div>
+  <button #submit class="btn btn-default" (click)="submitPayment(desc.value, amt.value)">Submit Payment</button>
+</div>
