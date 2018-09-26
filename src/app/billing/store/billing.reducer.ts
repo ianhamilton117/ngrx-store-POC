@@ -7,19 +7,17 @@ export interface State {
     payments: Payment[]
 }
 
-let defaultState: State = {
+// Empty initial state to avoid things like null pointers
+let initialState: State = {
     bills: [],
-    payments: [{date: new Date(), description: "This is a test", amount: 25}]
+    payments: []
 }
 
-export function BillingReducer(state: State = defaultState, action: BillingActions.BillingActions) {
+export function BillingReducer(state: State = initialState, action: BillingActions.BillingActions) {
     switch(action.type) {
-        case BillingActions.GET_BILLING_HISTORY:
-            console.log("GET_BILLING_HISTORY reducer called")
-            return state;
-        case BillingActions.GET_PAYMENT_HISTORY:
-            console.log("GET_PAYMENT_HISTORY reducer called")
-            return state;
+        case BillingActions.LOAD_PAYMENT_HISTORY_SUCCESS:
+            console.log("LOAD_PAYMENT_HISTORY_SUCCESS reducer called")
+            return {...state, payments: action.payload};
         case BillingActions.SUBMIT_PAYMENT_SUCCESS:
             console.log("SUBMIT_PAYMENT_SUCCESS reducer called")
             const newPayments = [...state.payments, action.payload];

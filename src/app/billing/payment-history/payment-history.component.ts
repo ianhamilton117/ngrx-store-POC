@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import * as AppState from '../../store/app.reducers';
 import * as BillingReducer from '../store/billing.reducer';
 import { Payment } from '../payment.model';
+import * as BillingActions from '../store/billing.actions';
 
 @Component({
   selector: 'app-payment-history',
@@ -20,7 +20,10 @@ export class PaymentHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.billingState = this.store.select('billing');
-    // this.billingState.pipe(map(state => state.payments)).subscribe(response => {this.payments = response});
+  }
+
+  reloadPaymentHistory() {
+    this.store.dispatch(new BillingActions.TryLoadPaymentHistory());
   }
 
   formatter = new Intl.NumberFormat('en-US', {
