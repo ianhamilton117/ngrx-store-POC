@@ -16,14 +16,17 @@ let initialState: State = {
 export function BillingReducer(state: State = initialState, action: BillingActions.BillingActions) {
     switch(action.type) {
         case BillingActions.LOAD_PAYMENT_HISTORY_SUCCESS:
-            console.log("LOAD_PAYMENT_HISTORY_SUCCESS reducer called")
             return {...state, payments: action.payload};
+        case BillingActions.LOAD_PAYMENT_HISTORY_FAILED:
+            alert(action.payload);
+            return state;
         case BillingActions.SUBMIT_PAYMENT_SUCCESS:
-            console.log("SUBMIT_PAYMENT_SUCCESS reducer called")
             const newPayments = [...state.payments, action.payload];
             return {...state, payments: newPayments};
+        case BillingActions.SUBMIT_PAYMENT_FAILED:
+            alert(action.payload);
+            return state;
         default:
-            console.log("Default reducer called with type: " + action.type)
             return state;
     }
 }
