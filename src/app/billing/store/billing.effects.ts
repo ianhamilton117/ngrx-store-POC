@@ -11,7 +11,7 @@ import { BillingService } from '../mock-billing.service';
 export class BillingEffects {
 
     @Effect()
-    submitPayment = this.actions.pipe(
+    submitPayment = this.actions$.pipe(
         // If the action is of type TRY_SUBMIT_PAYMENT
         ofType(BillingActions.TRY_SUBMIT_PAYMENT),
         // Extract the payload from the action
@@ -39,7 +39,7 @@ export class BillingEffects {
     );
 
     @Effect()
-    loadPaymentHistory = this.actions.pipe(
+    loadPaymentHistory = this.actions$.pipe(
         // If the action is of type TRY_LOAD_PAYMENT_HISTORY
         ofType(BillingActions.TRY_LOAD_PAYMENT_HISTORY),
         // Call the billingService to load the payment history
@@ -64,7 +64,7 @@ export class BillingEffects {
         })
     );
 
-    constructor(private actions: Actions, private billingService: BillingService) {
+    constructor(private actions$: Actions, private billingService: BillingService) {
 
     }
 

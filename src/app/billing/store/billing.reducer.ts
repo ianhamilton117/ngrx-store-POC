@@ -23,9 +23,6 @@ export function BillingReducer(state: State = initialState, action: BillingActio
         case BillingActions.SUBMIT_PAYMENT_SUCCESS:
             const newPayments = [...state.payments, action.payload];
             return {...state, payments: newPayments};
-        case BillingActions.SUBMIT_PAYMENT_FAILED:
-            alert(action.payload);
-            return state;
         default:
             return state;
     }

@@ -11,4 +11,10 @@
       <input #amt type="number" class="form-control" id="amount" (keyup.enter)="submit.click()">
     </div>
   <button #submit class="btn btn-default" (click)="submitPayment(desc.value, amt.value)">Submit Payment</button>
+  <div *ngIf="successFlag" class="alert alert-success">
+    <strong>Success!</strong> Your payment has been submitted.
+  </div>
+  <div *ngIf="failureFlag" class="alert alert-danger">
+    <strong>Oops!</strong> We were unable to submit your payment.
+  </div>
 </div>
