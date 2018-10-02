@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { BillingService } from './mock-billing.service';
+import { BillingService } from './billing.service';
 
 describe('BillingService', () => {
   beforeEach(() => {

@@ -42,7 +42,7 @@ export class PayBillsComponent implements OnDestroy {
   submitPayment(desc: string, amt: number) {
     this.successFlag = false;
     this.failureFlag = false;
-    let payment = new Payment(new Date(), desc, amt);
+    let payment = new Payment(Math.random(), new Date(), desc, amt);
     this.store.dispatch(new BillingActions.TrySubmitPayment(payment));
   }
 

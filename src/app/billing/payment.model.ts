@@ -1,3 +1,3 @@
 export class Payment {
-    constructor(public date: Date, public description: string, public amount: number) {}
+    constructor(public id: number, public date: Date, public description: string, public amount: number) {}
 }

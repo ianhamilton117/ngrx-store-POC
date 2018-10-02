@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { AppComponent } from './app.component';
 import { BillingComponent } from './billing/billing.component';
@@ -12,6 +14,7 @@ import { PayBillsComponent } from './billing/pay-bills/pay-bills.component';
 import { reducers } from './store/app.reducers';
 import { BillingEffects } from './billing/store/billing.effects';
 import { environment } from '../environments/environment';
+import { InMemoryBillingService } from './billing/in-memory-billing.service';
 
 const appRoutes: Routes = [
   { path: 'billing/history', component: PaymentHistoryComponent },
@@ -30,7 +33,9 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([BillingEffects]),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryBillingService)
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,7 +5,7 @@ import { from, of } from 'rxjs';
 
 import * as BillingActions from './billing.actions';
 import { Payment } from '../payment.model';
-import { BillingService } from '../mock-billing.service';
+import { BillingService } from '../billing.service';
 
 @Injectable()
 export class BillingEffects {
@@ -18,7 +18,7 @@ export class BillingEffects {
         map((action: BillingActions.TrySubmitPayment) => action.payload),
         // Call the billingService to submit the payment
         switchMap((payment: Payment) => {
-            return from(this.billingService.submitPayment(payment))
+            return this.billingService.submitPayment(payment)
                 .pipe(
                     // Upon successful submission, return a SUBMIT_PAYMENT_SUCCESS action to be handled by ngrx/effects
                     map((payment) => {
