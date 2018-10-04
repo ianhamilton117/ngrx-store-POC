@@ -3,6 +3,7 @@
     Payment History
   </h2>
   <button (click)="reloadPaymentHistory()">Refresh</button>
+  <span *ngIf="loadingFlag" style="margin-left: 10px;"><strong>Loading...</strong></span>
   <table class="table table-striped">
     <thead>
       <tr>

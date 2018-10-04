@@ -20,6 +20,7 @@ export class PaymentHistoryComponent implements OnInit, OnDestroy {
   destroyed$ = new Subject<boolean>();
   failureFlag = false;
   errorMessage = null;
+  loadingFlag = true;
 
 
   constructor(private store: Store<AppState.AppState>, private actions$: Actions) {
@@ -30,6 +31,12 @@ export class PaymentHistoryComponent implements OnInit, OnDestroy {
         this.failureFlag = true;
         this.errorMessage = action.payload;
       })
+    ).subscribe();
+
+    this.actions$.pipe(
+      ofType(BillingActions.LOAD_PAYMENT_HISTORY_SUCCESS),
+      takeUntil(this.destroyed$),
+      tap(_ => this.loadingFlag = false)
     ).subscribe();
   }
 
@@ -44,6 +51,7 @@ export class PaymentHistoryComponent implements OnInit, OnDestroy {
 
   reloadPaymentHistory() {
     this.failureFlag = false;
+    this.loadingFlag = true;
     this.store.dispatch(new BillingActions.TryLoadPaymentHistory());
   }
 
