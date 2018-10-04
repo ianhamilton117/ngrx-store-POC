@@ -35,7 +35,7 @@ const appRoutes: Routes = [
     EffectsModule.forRoot([BillingEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryBillingService)
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryBillingService, {passThruUnknownUrl: true})
   ],
   providers: [],
   bootstrap: [AppComponent]

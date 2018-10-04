@@ -17,15 +17,9 @@ export function BillingReducer(state: State = initialState, action: BillingActio
     switch(action.type) {
         case BillingActions.LOAD_PAYMENT_HISTORY_SUCCESS:
             return {...state, payments: action.payload};
-        case BillingActions.LOAD_PAYMENT_HISTORY_FAILED:
-            console.error(action.payload);
-            return state;
         case BillingActions.SUBMIT_PAYMENT_SUCCESS:
             const newPayments = [...state.payments, action.payload];
             return {...state, payments: newPayments};
-        case BillingActions.SUBMIT_PAYMENT_FAILED:
-            console.error(action.payload);
-            return state;
         default:
             return state;
     }
