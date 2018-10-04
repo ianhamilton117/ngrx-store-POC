@@ -4,8 +4,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Payment } from './payment.model';
 import * as AppState from '../store/app.reducers';
-import { tap, catchError, switchMap } from 'rxjs/operators';
-import { throwError, of, Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { throwError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,6 @@ export class BillingService {
   loadPaymentHistory(): Observable<Object> {
     return this.http.get<Payment[]>(this.url).pipe(
       tap((payments) => {
-        console.log("Response: ", payments);
         payments.forEach(payment => payment.date = new Date(payment.date));
       }),
       catchError(error => this.handleError(error))
@@ -39,14 +38,15 @@ export class BillingService {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
+    // return an observable with a user-facing error message
+    return throwError('Network error, please try again later');
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
       console.log(error);
-    }
     // return an observable with a user-facing error message
-    return throwError(
-      error.error.faultdescription);
+    return throwError(error.error.faultdescription);
+    }
   };
   
 }

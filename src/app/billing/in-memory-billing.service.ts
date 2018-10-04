@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDbService, RequestInfo, ResponseOptions, STATUS, getStatusText } from 'angular-in-memory-web-api';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import { Payment } from './payment.model';
 @Injectable({
@@ -18,37 +18,4 @@ export class InMemoryBillingService implements InMemoryDbService {
     ];
     return { payments };
   }
-
-  fault = {
-    faultstring: "REST.Fault.101",
-    faulttype: "WARNING",
-    faultdescription: "We are looking into it",
-    faultresponsecode: "500",
-    faultMessage: "EGL129 Database Error - Customer Account NF"
-  }
-
-  // Uncomment below to simulate an error response (this doesn't work as expected, but I'm leaving it here for now)
-  // get(reqInfo: RequestInfo) {return this.getError(reqInfo);}
-
-  private getError(reqInfo: RequestInfo) {
-    return reqInfo.utils.createResponse$(() => {
-      console.log("Overridden HTTP GET method");
-
-      let options: ResponseOptions = {
-        body: this.fault,
-        status: STATUS.INTERNAL_SERVER_ERROR,
-        statusText: "This is a disaster!"
-      }
-      
-      return this.finishOptions(options, reqInfo);
-    });
-  }
-
-  private finishOptions(options: ResponseOptions, { headers, url }: RequestInfo) {
-    options.statusText = "This is a total disaster!"
-    options.headers = headers;
-    options.url = url;
-    return options;
-  }
-
 }
